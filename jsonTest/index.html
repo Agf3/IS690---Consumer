@@ -1,0 +1,157 @@
+<html>
+<head>
+<script type="text/javascript">
+
+function hideOnLoad(){
+	document.getElementById('getRequestSpan').style.display = 'none';
+	document.getElementById('deleteRequestSpan').style.display = 'none';
+	document.getElementById('postRequestSpan').style.display = 'none';
+	document.getElementById('putRequestSpan').style.display = 'none';
+}
+
+function checkIt(element) {
+
+if (element.id == "get") {
+document.getElementById('getRequestSpan').style.display = 'block';
+document.getElementById('deleteRequestSpan').style.display = 'none';
+document.getElementById('postRequestSpan').style.display = 'none';
+document.getElementById('putRequestSpan').style.display = 'none';
+}
+
+else if(element.id == "delete"){
+	document.getElementById('deleteRequestSpan').style.display = 'block';
+	document.getElementById('getRequestSpan').style.display = 'none';
+	document.getElementById('postRequestSpan').style.display = 'none';
+	document.getElementById('putRequestSpan').style.display = 'none';
+}
+
+else if(element.id == "post"){
+	document.getElementById('postRequestSpan').style.display = 'block';
+	document.getElementById('getRequestSpan').style.display = 'none';
+	document.getElementById('deleteRequestSpan').style.display = 'none';
+	document.getElementById('putRequestSpan').style.display = 'none';
+}
+
+else {
+document.getElementById('putRequestSpan').style.display = 'block';
+document.getElementById('getRequestSpan').style.display = 'none';
+document.getElementById('deleteRequestSpan').style.display = 'none';
+document.getElementById('postRequestSpan').style.display = 'none';
+}
+
+document.getElementById('eventRequest').style.display = 'none';
+document.getElementById('personRequest').style.display = 'none';
+document.getElementById('userRequest').style.display = 'none';
+}
+
+function textInput(element){
+if (element.id == "getEventRequestText") {
+document.getElementById('eventRequest').style.display = 'block';
+document.getElementById('personRequest').style.display = 'none';
+document.getElementById('userRequest').style.display = 'none';
+}
+
+else if (element.id == "getPersonRequestText") {
+document.getElementById('eventRequest').style.display = 'none';
+document.getElementById('personRequest').style.display = 'block';
+document.getElementById('userRequest').style.display = 'none';
+}
+
+else if (element.id == "getUserRequestText") {
+document.getElementById('eventRequest').style.display = 'none';
+document.getElementById('personRequest').style.display = 'none';
+document.getElementById('userRequest').style.display = 'block';
+}
+
+else {
+document.getElementById('eventRequest').style.display = 'none';
+document.getElementById('personRequest').style.display = 'none';
+document.getElementById('userRequest').style.display = 'none';
+}
+
+}
+
+</script>
+</head>
+<body onload="javascript:hideOnLoad()";>
+<form name="form1" action="cURLTest.php" method="post">
+<strong>URL:</strong><br/> <input name="URL" type="text"
+value="http://www.whatcanidorightnow.info/services/" size="100" /><br /><br/>
+<strong>What Method Would You Like To Test:</strong>
+<br/>
+<INPUT name="method" type="radio" id="get" onClick="checkIt(this)" value="GET"> GET <br/>
+<INPUT type="radio" name="method" id="put" onClick="checkIt(this)" value="PUT"> PUT <br/>
+<INPUT type="radio" name="method" id="post" onClick="checkIt(this)" value="POST" > POST <br/>
+<INPUT type="radio" name="method" id="delete" onClick="checkIt(this)" value="DELETE" > DELETE <br/><br/>
+
+<span id="getRequestSpan">
+<strong>What Would You Like To GET:</strong><br/><br/>
+<strong>EVENTS:</strong><br/>
+<INPUT name="methodRequest" type="radio" id="getRequest" onClick="textInput(this)" value="entity/event/list/all" >List all events <br/>
+<INPUT id="getRequest" type="radio" name="methodRequest" onClick="textInput(this)" value="entity/event" >List all events as uri's<br/>
+<INPUT id="getEventRequestText" type="radio" name="methodRequest" onClick="textInput(this)" value="entity/event/">Retrieve an event<br/>
+<INPUT id="getEventRequestText" type="radio" name="methodRequest" onClick="textInput(this)" value="entity/event/*/person/list/all">Retrieve people for an event<br/>
+<INPUT id="getEventRequestText" type="radio" name="methodRequest" onClick="textInput(this)" value="entity/event/*/person">Retrieve people for an event as uri's<br/><br/>
+
+<span id="eventRequest">
+Enter The ID Of The Event You Would Like To Retrieve:<br/>
+<INPUT name="eventRequest" type="text" id="eventRequest" size="150"><br/><br/>
+</span>
+
+<strong>PEOPLE:</strong><br/>
+<INPUT id="getRequest" type="radio" name="methodRequest"  onclick="textInput(this)" value="entity/person/list/all" >List all people <br/>
+<INPUT id="getRequest" type="radio" name="methodRequest" onClick="textInput(this)"  value="entity/person" >List all people as uri's <br/>
+<INPUT id="getPersonRequestText" type="radio" name="methodRequest"  onclick="textInput(this)" value="entity/person/">Retrieve a person<br/><br/>
+
+<span id="personRequest">
+Enter The ID Of The Person You Would Like To Retrieve:<br/>
+<INPUT name="personRequest" type="text" size="15"><br/><br/>
+</span>
+
+<strong>USERS:</strong><br/>
+<INPUT id="getRequest" type="radio" name="methodRequest"  onclick="textInput(this)" value="entity/user/list/all" >List all users <br/>
+<INPUT id="getRequest" type="radio" name="methodRequest"  onclick="textInput(this)" value="entity/user" >List all users as uri's<br/>
+<INPUT id="getUserRequestText" type="radio" name="methodRequest"  onclick="textInput(this)" value="entity/user/">Retrieve a user<br/><br/>
+
+<span id="userRequest">
+Enter The Email Of The User You Would Like To Retrieve:<br/>
+<INPUT name="userRequest" type="text" size="100"><br/><br/>
+</span>
+</span>
+
+<span id="deleteRequestSpan">
+<strong>What Would You Like To DELETE:</strong><br/><br/>
+<INPUT id="deleteRequest" type="radio" name="methodRequest" value="entity/event/" >Delete an event by id<br/>
+<INPUT id="deleteRequest" type="radio" name="methodRequest" value="entity/person/" >Delete a person by id<br/>
+<INPUT id="deleteRequest" type="radio" name="methodRequest" value="entity/user/">Delete a user by email<br/><br/>
+
+Enter The ID or Email You Would Like To Delete:<br/>
+<INPUT name="consumerDeleteRequest" type="text" size="150"><br/><br/>
+</span>
+
+<span id="postRequestSpan">
+<strong>What Would You Like To POST:</strong><br/><br/>
+<INPUT id="postRequest" type="radio" name="methodRequest" value="entity/event/" >Update an event by id<br/>
+<INPUT id="postRequest" type="radio" name="methodRequest" value="entity/person/" >Update a person by id<br/>
+<INPUT id="postRequest" type="radio" name="methodRequest" value="entity/user/">Update a user by email<br/><br/>
+
+Enter The ID or Email You Would Like To Update:<br/>
+<INPUT name="consumerPostRequest" type="text" size="150"><br/><br/>
+
+Enter The Full JSON Request:<br/>
+<INPUT name="jsonRequestPost" type="text" size="150"><br/><br/>
+</span>
+
+<span id="putRequestSpan">
+<strong>What Would You Like To PUT:</strong><br/><br/>
+<INPUT id="putRequest" type="radio" name="methodRequest" value="entity/event/" >Create An Event<br/>
+<INPUT id="putRequest" type="radio" name="methodRequest" value="entity/person/" >Create A Person<br/>
+<INPUT id="putRequest" type="radio" name="methodRequest" value="entity/user/">Create A User<br/><br/>
+
+Enter The Full JSON Request:<br/>
+<INPUT name="jsonRequestPut" type="text" size="150"><br/><br/>
+</span>
+<input type="submit" name="TEST" value="TEST" />
+</form>
+</body>
+</html>
